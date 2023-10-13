@@ -3,7 +3,7 @@ import sys
 import uuid
 import traceback
 import streamlit as st
-from playsound import playsound
+# from playsound import playsound
 
 # Import the required module for text
 # to speech conversion
