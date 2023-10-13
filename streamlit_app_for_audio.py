@@ -3,7 +3,7 @@ import sys
 import uuid
 import traceback
 import streamlit as st
-# from playsound import playsound
+from playsound import playsound
 
 # Import the required module for text
 # to speech conversion
@@ -61,10 +61,10 @@ try:
                     # Playing the converted file
                     # os.system(f"mpg321 {audio_file_name}.mp3")
                     # play the audio file
+                    playsound(audio_file_name)
                     # playsound(audio_file_path)
-                    # playsound(audio_file_path)
-                    song = AudioSegment.from_mp3(audio_file_name)
-                    play(song)
+                    # song = AudioSegment.from_mp3(audio_file_name)
+                    # play(song)
 
                     with open(audio_file_name, 'rb') as f:
                         if st.download_button('Download Audio Speech File', f, file_name=audio_file_name):
