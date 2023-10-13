@@ -1,6 +1,7 @@
 import os
 import sys
 import uuid
+import base64
 import traceback
 import streamlit as st
 from playsound import playsound
@@ -27,6 +28,20 @@ try:
     st.markdown("<h1 style='text-align: center;'>Text to Speech</h1>",
                 unsafe_allow_html=True)
 
+    def autoplay_audio(file_path: str):
+        with open(file_path, "rb") as f:
+            data = f.read()
+            b64 = base64.b64encode(data).decode()
+            md = f"""
+                <audio controls autoplay="true">
+                <source src="data:audio/mp3;base64,{b64}" type="audio/mp3">
+                </audio>
+                """
+            st.markdown(
+                md,
+                unsafe_allow_html=True,
+            )
+
     with st.container():
         text_for_speech = st.text_area(
             "Text to convert",
@@ -52,7 +67,7 @@ try:
                 audio_file_name = f'audio-{uuid.uuid4().hex}.mp3'
                 # audio_file_name = f'audio.mp3'
                 cwd = os.getcwd()
-                # audio_file_path = f'{cwd}/{audio_file_name}'
+                audio_file_path = f'{cwd}/{audio_file_name}'
                 myobj.save(audio_file_name)
                 if os.path.isfile(audio_file_name):
                     st.info(f'Audio file name: {audio_file_name}')
@@ -63,8 +78,9 @@ try:
                     # play the audio file
                     # playsound(audio_file_name)
                     # playsound(audio_file_path)
-                    # song = AudioSegment.from_mp3(audio_file_name)
-                    # play(song)
+                    # audio = AudioSegment.from_mp3(audio_file_name)
+                    # play(audio)
+                    autoplay_audio(audio_file_path)
 
                     with open(audio_file_name, 'rb') as f:
                         if st.download_button('Download Audio Speech File', f, file_name=audio_file_name):
