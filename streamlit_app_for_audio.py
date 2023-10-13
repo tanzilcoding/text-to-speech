@@ -61,7 +61,7 @@ try:
                     # Playing the converted file
                     # os.system(f"mpg321 {audio_file_name}.mp3")
                     # play the audio file
-                    playsound(audio_file_name)
+                    # playsound(audio_file_name)
                     # playsound(audio_file_path)
                     # song = AudioSegment.from_mp3(audio_file_name)
                     # play(song)
